@@ -9,7 +9,6 @@ import SwiftUI
 import Foundation
 
 let cardRepository = CardRepository()
-let CARD_ASPECT_RATIO = 2.5/3.5
 
 struct ContentView: View {
     @State private var cards: [Card] = []
@@ -24,10 +23,10 @@ struct ContentView: View {
                         image
                             .resizable()
                     } placeholder: {
-                        CardPlaceholder()
+                        CardPlaceholderView()
                     }
                 }
-                .aspectRatio(CARD_ASPECT_RATIO, contentMode: .fit)
+                .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
             .padding(.horizontal)
         }

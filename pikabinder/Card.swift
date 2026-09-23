@@ -7,6 +7,8 @@
 import Foundation
 
 struct Card: Decodable, Identifiable {
+    static var aspectRatio: CGFloat = 2.5/3.5
+
     let id: String
     let name: String
     let images: Images

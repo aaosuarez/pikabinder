@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct CardPlaceholder: View {
+struct CardPlaceholderView: View {
     @State private var isAnimating: Bool = false
     
     var body: some View {
@@ -20,12 +20,11 @@ struct CardPlaceholder: View {
             .onAppear {
                 isAnimating = true
             }
-            .aspectRatio(CARD_ASPECT_RATIO, contentMode: .fit)
     }
 }
 
 #Preview {
     VStack {
-        CardPlaceholder()
+        CardPlaceholderView()
     }.padding()
 }

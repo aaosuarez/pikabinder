@@ -6,14 +6,19 @@
 //
 
 import Testing
+import Foundation
+
 @testable import pikabinder
 
 struct pikabinderTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        // Swift Testing Documentation
-        // https://developer.apple.com/documentation/testing
+    @Test func decodesStaticCards() async throws {
+        let cardResposity = await CardRepository()
+        let cards = await cardResposity.loadCards()
+
+        #expect(cards.count > 0)
+        #expect(!cards[0].id.isEmpty)
+        await #expect(!cards[0].images.small.absoluteString.isEmpty)
     }
 
 }

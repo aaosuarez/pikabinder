@@ -6,10 +6,12 @@
 //
 import Foundation
 
-/// Matches the paginated envelope from the Pokémon TCG API,
-/// where the cards are nested under the `data` key.
-struct CardsResponse: Decodable {
-    let data: [Card]
+struct CardRepository {
+    /// Loads the cards, unwrapping the top-level `data` array.
+    func loadCards() -> [Card] {
+        let response: CardsResponse = decode("cards.json")
+        return response.data
+    }
 }
 
 /// Decodes a JSON resource from the app bundle into a `Decodable` type.

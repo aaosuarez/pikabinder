@@ -17,10 +17,8 @@ struct Card: Decodable, Identifiable {
     }
 }
 
-struct CardRepository {
-    /// Loads the cards, unwrapping the top-level `data` array.
-    func loadCards() -> [Card] {
-        let response: CardsResponse = decode("cards.json")
-        return response.data
-    }
+/// Matches the paginated envelope from the Pokémon TCG API,
+/// where the cards are nested under the `data` key.
+struct CardsResponse: Decodable {
+    let data: [Card]
 }

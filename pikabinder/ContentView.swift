@@ -13,14 +13,23 @@ let cardRepository = CardRepository()
 struct ContentView: View {
     @State private var cards: [Card] = []
     
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
-        VStack {
-            List(cards) { card in
-                Text(card.name)
-            }
+        ScrollView {
+            LazyVGrid (columns: columns) {
+                ForEach(cards) { card in
+                    AsyncImage(url: card.images.small) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                }
+            }.padding(.horizontal)
         }
-        .padding()
-        .onAppear() {
+        .task {
             cards = cardRepository.loadCards()
         }
     }

@@ -1,13 +1,13 @@
 //
-//  pikabinderUITestsLaunchTests.swift
-//  pikabinderUITests
+//  PikabinderUITestsLaunchTests.swift
+//  pikabinderUITestsLaunchTests
 //
 //  Created by Aaron Suarez on 9/23/26.
 //
 
 import XCTest
 
-final class pikabinderUITestsLaunchTests: XCTestCase {
+final class PikabinderUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

@@ -25,8 +25,8 @@ struct ContentView: View {
                     } placeholder: {
                         CardPlaceholderView()
                     }
+                    .aspectRatio(Card.aspectRatio, contentMode: .fit)
                 }
-                .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
             .padding(.horizontal)
         }

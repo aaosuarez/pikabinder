@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 
 let cardRepository = CardRepository()
+let CARD_ASPECT_RATIO = 2.5/3.5
 
 struct ContentView: View {
     @State private var cards: [Card] = []
@@ -22,12 +23,13 @@ struct ContentView: View {
                     AsyncImage(url: card.images.small) { image in
                         image
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
                     } placeholder: {
-                        ProgressView()
+                        CardPlaceholder()
                     }
                 }
-            }.padding(.horizontal)
+                .aspectRatio(CARD_ASPECT_RATIO, contentMode: .fit)
+            }
+            .padding(.horizontal)
         }
         .task {
             cards = cardRepository.loadCards()

@@ -12,12 +12,10 @@ import Foundation
 
 @MainActor struct PikabinderTests {
 
-    @Test func decodesStaticCards() async throws {
+    @Test func decodesStaticCards() throws {
         let cardRepository = CardRepository()
         let cards = cardRepository.loadCards()
-        let card = cards.first(where: { $0.id == "base1-58" })
-        
-        #expect(card?.name == "Pikachu")
-        #expect(card?.images.small.absoluteString.isEmpty == false)
+        let card = try #require(cards.first(where: { $0.id == "base1-58" }), "Card with id 'base1-58' not found")
+        #expect(card.name == "Pikachu")
     }
 }

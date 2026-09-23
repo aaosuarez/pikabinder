@@ -22,6 +22,7 @@ struct ContentView: View {
                     AsyncImage(url: card.images.small) { image in
                         image
                             .resizable()
+                            .grayscale(ownedCards.contains(card.id) ? 0 : 1)
                     } placeholder: {
                         CardPlaceholderView()
                     }
@@ -31,7 +32,11 @@ struct ContentView: View {
             .padding(.horizontal)
         }
         .task {
-            cards = cardRepository.loadCards()
+            cards = cardRepository.loadCards().sorted { a, b in
+                let isAOwned = ownedCards.contains(a.id)
+                let isBOwned = ownedCards.contains(b.id)
+                return isAOwned && !isBOwned
+            }
         }
     }
 }

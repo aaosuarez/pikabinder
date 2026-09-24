@@ -15,6 +15,7 @@ struct Card: Decodable, Identifiable {
     
     struct Images: Decodable {
         let small: URL
+        let large: URL
     }
 }
 

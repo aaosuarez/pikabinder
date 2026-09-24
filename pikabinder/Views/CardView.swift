@@ -12,9 +12,14 @@ enum CardSize {
     case large
 }
 
+enum CardColor {
+    case fullColor
+    case grayscale
+}
+
 struct CardView: View {
     let card: Card
-    let isOwned: Bool
+    var color: CardColor = CardColor.fullColor
     var size: CardSize = CardSize.small
 
     func getCardImageUrl() -> URL {
@@ -30,7 +35,7 @@ struct CardView: View {
         AsyncImage(url: getCardImageUrl()) { image in
             image
                 .resizable()
-                .grayscale(isOwned ? 0 : 1)
+                .grayscale(color == CardColor.grayscale ? 1 : 0)
         } placeholder: {
             CardPlaceholderView()
         }
@@ -52,6 +57,5 @@ struct CardView: View {
                 )!
             )
         ),
-        isOwned: true
     )
 }

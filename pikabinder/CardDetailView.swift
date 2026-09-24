@@ -48,4 +48,5 @@ struct CardDetailView: View {
             )
         )
     )
+    .modelContainer(for: OwnedCard.self, inMemory: true)
 }

@@ -58,4 +58,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: OwnedCard.self, inMemory: true)
 }

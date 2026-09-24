@@ -12,14 +12,23 @@ struct CardDetailView: View {
     @Environment(\.modelContext) var modelContext
     @Query var ownedCards: [OwnedCard]
     var ownedCardIds: Set<String> { Set(ownedCards.map(\.cardId)) }
+    var isOwned: Bool {
+        ownedCardIds.contains(card.id)
+    }
 
     let card: Card
     var body: some View {
         VStack {
             CardView(card: card, size: CardSize.large)
-            Button(action: handlePress) {
-                Text(ownedCardIds.contains(card.id) ? "Remove" : "Add")
+
+            Button(role: isOwned ? .destructive : nil, action: handlePress) {
+                Label(
+                    isOwned ? "Remove" : "Add",
+                    systemImage: isOwned ? "minus.circle" : "plus.circle"
+                )
             }
+            .buttonStyle(.glassProminent)
+            .controlSize(.large)
         }
         .padding()
     }

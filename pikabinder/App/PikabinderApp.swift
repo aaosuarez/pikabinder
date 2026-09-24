@@ -13,7 +13,14 @@ struct PikabinderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: [OwnedCard.self])
+                .modelContainer(for: OwnedCard.self) { result in
+                    switch result {
+                    case .success(let container):
+                        seedOwnedCardsIfNeeded(into: container.mainContext)
+                    case .failure(let error):
+                        print("Failed to set up model container: \(error)")
+                    }
+                }
         }
     }
 }

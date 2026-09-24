@@ -33,12 +33,11 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(
-                    sortedCards
-                ) { card in
+                ForEach(sortedCards) { card in
                     CardView(
                         card: card,
-                        color: ownedCardIds.contains(card.id) ? CardColor.fullColor : CardColor.grayscale
+                        color: ownedCardIds.contains(card.id)
+                            ? CardColor.fullColor : CardColor.grayscale
                     )
                     .onTapGesture {
                         selectedCard = card

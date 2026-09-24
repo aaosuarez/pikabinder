@@ -47,6 +47,8 @@ struct ContentView: View {
             .padding(.horizontal)
             .sheet(item: $selectedCard) { card in
                 CardDetailView(card: card)
+                    .presentationDetents([.medium, .large])
+
             }
         }
         .task {

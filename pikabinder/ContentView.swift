@@ -14,9 +14,17 @@ let cardRepository = CardRepository()
 struct ContentView: View {
     @Query var ownedCards: [OwnedCard]
     var ownedCardIds: Set<String> { Set(ownedCards.map(\.cardId)) }
-    
+
     @State private var cards: [Card] = []
     @State private var selectedCard: Card? = nil
+
+    var sortedCards: [Card] {
+        return cards.sorted { a, b in
+            let isAOwned = ownedCardIds.contains(a.id)
+            let isBOwned = ownedCardIds.contains(b.id)
+            return isAOwned && !isBOwned
+        }
+    }
 
     let columns = [
         GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()),
@@ -25,11 +33,16 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(cards) { card in
-                    CardView(card: card, isOwned: ownedCardIds.contains(card.id))
-                        .onTapGesture {
-                            selectedCard = card
-                        }
+                ForEach(
+                    sortedCards
+                ) { card in
+                    CardView(
+                        card: card,
+                        color: ownedCardIds.contains(card.id) ? CardColor.fullColor : CardColor.grayscale
+                    )
+                    .onTapGesture {
+                        selectedCard = card
+                    }
                 }
             }
             .padding(.horizontal)
@@ -38,11 +51,7 @@ struct ContentView: View {
             }
         }
         .task {
-            cards = cardRepository.loadCards().sorted { a, b in
-                let isAOwned = ownedCardIds.contains(a.id)
-                let isBOwned = ownedCardIds.contains(b.id)
-                return isAOwned && !isBOwned
-            }
+            cards = cardRepository.loadCards()
         }
     }
 }

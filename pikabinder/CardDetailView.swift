@@ -16,7 +16,7 @@ struct CardDetailView: View {
     let card: Card
     var body: some View {
         VStack {
-            CardView(card: card, isOwned: true, size: CardSize.large)
+            CardView(card: card, size: CardSize.large)
             Button(action: handlePress) {
                 Text(ownedCardIds.contains(card.id) ? "Remove" : "Add")
             }
@@ -25,10 +25,8 @@ struct CardDetailView: View {
     }
 
     func handlePress() {
-        if ownedCardIds.contains(card.id) {
-            modelContext.delete(
-                ownedCards.first(where: { $0.cardId == card.id })!
-            )
+        if let ownedCard = ownedCards.first(where: { $0.cardId == card.id }) {
+            modelContext.delete(ownedCard)
         } else {
             modelContext.insert(OwnedCard(cardId: card.id))
         }

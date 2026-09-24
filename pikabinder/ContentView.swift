@@ -5,20 +5,22 @@
 //  Created by Aaron Suarez on 9/23/26.
 //
 
-import SwiftUI
 import Foundation
+import SwiftUI
 
 let cardRepository = CardRepository()
 
 struct ContentView: View {
     @State private var cards: [Card] = []
     @State private var selectedCard: Card? = nil
-    
-    let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-    
+
+    let columns = [
+        GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()),
+    ]
+
     var body: some View {
         ScrollView {
-            LazyVGrid (columns: columns) {
+            LazyVGrid(columns: columns) {
                 ForEach(cards) { card in
                     CardView(card: card, isOwned: ownedCards.contains(card.id))
                         .onTapGesture {

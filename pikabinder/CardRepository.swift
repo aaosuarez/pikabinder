@@ -16,7 +16,8 @@ struct CardRepository {
 
 /// Decodes a JSON resource from the app bundle into a `Decodable` type.
 func decode<T: Decodable>(_ file: String) -> T {
-    guard let url = Bundle.main.url(forResource: file, withExtension: nil) else {
+    guard let url = Bundle.main.url(forResource: file, withExtension: nil)
+    else {
         fatalError("Couldn't find \(file) in the app bundle.")
     }
     do {

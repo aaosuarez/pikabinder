@@ -16,16 +16,16 @@ struct CardView: View {
     let card: Card
     let isOwned: Bool
     var size: CardSize = CardSize.small
-    
+
     func getCardImageUrl() -> URL {
-        switch (size) {
+        switch size {
         case .small:
             return card.images.small
         case .large:
             return card.images.large
         }
     }
-    
+
     var body: some View {
         AsyncImage(url: getCardImageUrl()) { image in
             image
@@ -44,8 +44,12 @@ struct CardView: View {
             id: "test",
             name: "Pikachu",
             images: Card.Images(
-                small: URL(string: "https://images.pokemontcg.io/base1/58.png")!,
-                large: URL(string: "https://images.pokemontcg.io/base1/58_hires.png")!
+                small: URL(
+                    string: "https://images.pokemontcg.io/base1/58.png"
+                )!,
+                large: URL(
+                    string: "https://images.pokemontcg.io/base1/58_hires.png"
+                )!
             )
         ),
         isOwned: true

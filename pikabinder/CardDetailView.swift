@@ -19,5 +19,18 @@ struct CardDetailView: View {
 }
 
 #Preview {
-    CardDetailView(card: Card(id: "test", name: "Pikachu", images: Card.Images(small: URL(string: "https://images.pokemontcg.io/base1/58.png")!, large: URL(string: "https://images.pokemontcg.io/base1/58_hires.png")!)))
+    CardDetailView(
+        card: Card(
+            id: "test",
+            name: "Pikachu",
+            images: Card.Images(
+                small: URL(
+                    string: "https://images.pokemontcg.io/base1/58.png"
+                )!,
+                large: URL(
+                    string: "https://images.pokemontcg.io/base1/58_hires.png"
+                )!
+            )
+        )
+    )
 }

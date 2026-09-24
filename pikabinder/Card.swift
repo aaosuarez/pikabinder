@@ -7,12 +7,12 @@
 import Foundation
 
 struct Card: Decodable, Identifiable {
-    static var aspectRatio = 2.5/3.5
-    
+    static var aspectRatio = 2.5 / 3.5
+
     let id: String
     let name: String
     let images: Images
-    
+
     struct Images: Decodable {
         let small: URL
         let large: URL
@@ -51,5 +51,5 @@ let ownedCards = Set([
     "sv3pt5-173",
     "sv3pt5-25",
     "sv5-51",
-    "smp-SM76"
+    "smp-SM76",
 ])

@@ -8,7 +8,7 @@ import SwiftUI
 
 struct CardPlaceholderView: View {
     @State private var isAnimating: Bool = false
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .fill(Color(.systemGray5))

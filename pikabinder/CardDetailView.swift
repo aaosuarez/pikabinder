@@ -5,16 +5,33 @@
 //  Created by Aaron Suarez on 9/23/26.
 //
 
+import SwiftData
 import SwiftUI
 
 struct CardDetailView: View {
+    @Environment(\.modelContext) var modelContext
+    @Query var ownedCards: [OwnedCard]
+    var ownedCardIds: Set<String> { Set(ownedCards.map(\.cardId)) }
+
     let card: Card
     var body: some View {
         VStack {
             CardView(card: card, isOwned: true, size: CardSize.large)
-            Text(card.name)
+            Button(action: handlePress) {
+                Text(ownedCardIds.contains(card.id) ? "Remove" : "Add")
+            }
         }
         .padding()
+    }
+
+    func handlePress() {
+        if ownedCardIds.contains(card.id) {
+            modelContext.delete(
+                ownedCards.first(where: { $0.cardId == card.id })!
+            )
+        } else {
+            modelContext.insert(OwnedCard(cardId: card.id))
+        }
     }
 }
 

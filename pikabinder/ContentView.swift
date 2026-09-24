@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
 
 let cardRepository = CardRepository()
 
 struct ContentView: View {
+    @Query var ownedCards: [OwnedCard]
+    var ownedCardIds: Set<String> { Set(ownedCards.map(\.cardId)) }
+    
     @State private var cards: [Card] = []
     @State private var selectedCard: Card? = nil
 
@@ -22,7 +26,7 @@ struct ContentView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(cards) { card in
-                    CardView(card: card, isOwned: ownedCards.contains(card.id))
+                    CardView(card: card, isOwned: ownedCardIds.contains(card.id))
                         .onTapGesture {
                             selectedCard = card
                         }
@@ -35,8 +39,8 @@ struct ContentView: View {
         }
         .task {
             cards = cardRepository.loadCards().sorted { a, b in
-                let isAOwned = ownedCards.contains(a.id)
-                let isBOwned = ownedCards.contains(b.id)
+                let isAOwned = ownedCardIds.contains(a.id)
+                let isBOwned = ownedCardIds.contains(b.id)
                 return isAOwned && !isBOwned
             }
         }

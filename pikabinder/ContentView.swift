@@ -19,14 +19,7 @@ struct ContentView: View {
         ScrollView {
             LazyVGrid (columns: columns) {
                 ForEach(cards) { card in
-                    AsyncImage(url: card.images.small) { image in
-                        image
-                            .resizable()
-                            .grayscale(ownedCards.contains(card.id) ? 0 : 1)
-                    } placeholder: {
-                        CardPlaceholderView()
-                    }
-                    .aspectRatio(Card.aspectRatio, contentMode: .fit)
+                    CardView(card: card, isOwned: ownedCards.contains(card.id))
                 }
             }
             .padding(.horizontal)

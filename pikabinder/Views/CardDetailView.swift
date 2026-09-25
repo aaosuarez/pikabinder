@@ -19,7 +19,7 @@ struct CardDetailView: View {
     let card: Card
     var body: some View {
         VStack {
-            CardView(card: card, size: CardSize.large)
+            CardView(card: card, size: .large)
 
             Button(role: isOwned ? .destructive : nil, action: handlePress) {
                 Label(

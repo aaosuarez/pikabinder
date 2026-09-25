@@ -7,7 +7,7 @@
 import Foundation
 
 struct Card: Decodable, Identifiable {
-    static var aspectRatio = 2.5 / 3.5
+    static let aspectRatio = 2.5 / 3.5
 
     let id: String
     let name: String

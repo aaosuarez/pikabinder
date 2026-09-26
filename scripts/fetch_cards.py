@@ -31,7 +31,7 @@ while True:
     page += 1
 
 print("Saving JSON file")
-with open("cards.json", "w", encoding="utf-8") as file:
+with open("../pikabinder/cards.json", "w", encoding="utf-8") as file:
     json.dump({"data": data}, file)
 
 print("Done")

@@ -11,9 +11,9 @@ struct Card: Decodable, Identifiable {
 
     let id: String
     let name: String
-    let images: Images
+    let images: [Image]
 
-    struct Images: Decodable {
+    struct Image: Decodable {
         let small: URL
         let large: URL
     }

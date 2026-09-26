@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var selectedCard: Card? = nil
 
     var sortedCards: [Card] {
+        print(cards.count)
         return cards.sorted { a, b in
             let isAOwned = ownedCardIds.contains(a.id)
             let isBOwned = ownedCardIds.contains(b.id)

@@ -47,14 +47,14 @@ struct CardDetailView: View {
         card: Card(
             id: "test",
             name: "Pikachu",
-            images: Card.Images(
+            images: [Card.Image(
                 small: URL(
                     string: "https://images.pokemontcg.io/base1/58.png"
                 )!,
                 large: URL(
                     string: "https://images.pokemontcg.io/base1/58_hires.png"
                 )!
-            )
+            )]
         )
     )
     .modelContainer(for: OwnedCard.self, inMemory: true)

@@ -10,7 +10,7 @@ load_dotenv()
 
 headers = {
     "X-Api-Key": os.getenv("SCRYDEX_API_KEY"),
-    "X-Team-ID": "magicpopcorn" # DO NOT COMMIT
+    "X-Team-ID": "magicpopcorn"
 }
 
 data = []

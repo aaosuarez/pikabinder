@@ -23,7 +23,7 @@ enum LanguageFilter: String, CaseIterable, Identifiable {
     case all = "All"
     case english = "English"
     case japanese = "Japanese"
-    
+
     var id: Self { self }
 }
 
@@ -36,10 +36,11 @@ struct ContentView: View {
 
     @State private var collectionFilter: CollectionFilter = .all
     @State private var languageFilter: LanguageFilter = .all
-   
+
     var visibleCards: [Card] {
         let ownedIds = ownedCardIds
-        return cards
+        return
+            cards
             .filter { card in
                 switch collectionFilter {
                 case .all:
@@ -71,6 +72,10 @@ struct ContentView: View {
 
     var body: some View {
         let ownedIds = ownedCardIds
+        let hasActiveFilter =
+            collectionFilter != CollectionFilter.all
+            || languageFilter != LanguageFilter.all
+
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns) {
@@ -78,7 +83,7 @@ struct ContentView: View {
                         CardView(
                             card: card,
                             color: ownedIds.contains(card.id)
-                            ? CardColor.fullColor : CardColor.grayscale
+                                ? CardColor.fullColor : CardColor.grayscale
                         )
                         .onTapGesture {
                             selectedCard = card
@@ -89,7 +94,7 @@ struct ContentView: View {
                 .sheet(item: $selectedCard) { card in
                     CardDetailView(card: card)
                         .presentationDetents([.medium, .large])
-                    
+
                 }
             }
             .task {
@@ -97,24 +102,34 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Menu("Filter") {
+                    Menu {
                         Section("Collection") {
-                            Picker("CollectionFilter", selection: $collectionFilter) {
+                            Picker(
+                                "CollectionFilter",
+                                selection: $collectionFilter
+                            ) {
                                 ForEach(CollectionFilter.allCases) { filter in
                                     Text(filter.rawValue).tag(filter)
                                 }
                             }
                             .pickerStyle(.inline)
                         }
-                        
+
                         Section("Language") {
-                            Picker("LanguageFilter", selection: $languageFilter) {
+                            Picker("LanguageFilter", selection: $languageFilter)
+                            {
                                 ForEach(LanguageFilter.allCases) { filter in
                                     Text(filter.rawValue).tag(filter)
                                 }
                             }
                             .pickerStyle(.inline)
                         }
+                    } label: {
+                        Image(
+                            systemName: hasActiveFilter
+                                ? "line.3.horizontal.decrease.circle.fill"
+                                : "line.3.horizontal.decrease.circle"
+                        )
                     }
                 }
             }

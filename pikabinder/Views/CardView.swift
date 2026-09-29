@@ -48,14 +48,17 @@ struct CardView: View {
         card: Card(
             id: "test",
             name: "Pikachu",
-            images: [Card.Image(
-                small: URL(
-                    string: "https://images.pokemontcg.io/base1/58.png"
-                )!,
-                large: URL(
-                    string: "https://images.pokemontcg.io/base1/58_hires.png"
-                )!
-            )]
+            images: [
+                Card.Image(
+                    small: URL(
+                        string: "https://images.pokemontcg.io/base1/58.png"
+                    )!,
+                    large: URL(
+                        string:
+                            "https://images.pokemontcg.io/base1/58_hires.png"
+                    )!
+                )
+            ]
         ),
     )
 }

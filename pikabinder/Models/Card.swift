@@ -12,6 +12,7 @@ struct Card: Decodable, Identifiable {
     let id: String
     let name: String
     let images: [Image]
+    var language_code: String = "EN"
 
     struct Image: Decodable {
         let small: URL

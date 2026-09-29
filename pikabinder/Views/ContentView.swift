@@ -72,9 +72,7 @@ struct ContentView: View {
 
     var body: some View {
         let ownedIds = ownedCardIds
-        let hasActiveFilter =
-            collectionFilter != CollectionFilter.all
-            || languageFilter != LanguageFilter.all
+        let hasActiveFilter = collectionFilter != .all || languageFilter != .all
 
         NavigationStack {
             ScrollView {
@@ -101,6 +99,7 @@ struct ContentView: View {
                 cards = cardRepository.loadCards()
             }
             .toolbar {
+                ToolbarSpacer(.flexible, placement: .bottomBar)
                 ToolbarItem(placement: .bottomBar) {
                     Menu {
                         Section("Collection") {

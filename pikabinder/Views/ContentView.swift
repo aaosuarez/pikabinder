@@ -38,15 +38,16 @@ struct ContentView: View {
     @State private var languageFilter: LanguageFilter = .all
    
     var visibleCards: [Card] {
-        cards
+        let ownedIds = ownedCardIds
+        return cards
             .filter { card in
                 switch collectionFilter {
                 case .all:
                     return true
                 case .owned:
-                    return ownedCardIds.contains(card.id)
+                    return ownedIds.contains(card.id)
                 case .missing:
-                    return !ownedCardIds.contains(card.id)
+                    return !ownedIds.contains(card.id)
                 }
             }
             .filter { card in
@@ -60,7 +61,7 @@ struct ContentView: View {
                 }
             }
             .sorted { a, b in
-                ownedCardIds.contains(a.id) && !ownedCardIds.contains(b.id)
+                ownedIds.contains(a.id) && !ownedIds.contains(b.id)
             }
     }
 
@@ -69,13 +70,14 @@ struct ContentView: View {
     ]
 
     var body: some View {
+        let ownedIds = ownedCardIds
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(visibleCards) { card in
                         CardView(
                             card: card,
-                            color: ownedCardIds.contains(card.id)
+                            color: ownedIds.contains(card.id)
                             ? CardColor.fullColor : CardColor.grayscale
                         )
                         .onTapGesture {

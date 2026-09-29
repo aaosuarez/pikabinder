@@ -17,6 +17,13 @@ enum CollectionFilter: String, CaseIterable, Identifiable {
     case missing = "Missing"
 
     var id: Self { self }
+    var systemImage: String {
+        switch self {
+        case .all: return "rectangle.grid.3x2"
+        case .owned: return "rectangle.portrait.fill"
+        case .missing: return "rectangle.portrait"
+        }
+    }
 }
 
 enum LanguageFilter: String, CaseIterable, Identifiable {
@@ -25,6 +32,13 @@ enum LanguageFilter: String, CaseIterable, Identifiable {
     case japanese = "Japanese"
 
     var id: Self { self }
+    var systemImage: String {
+        switch self {
+        case .all: return "globe"
+        case .english: return "character"
+        case .japanese: return "character.ja"
+        }
+    }
 }
 
 struct ContentView: View {
@@ -108,7 +122,10 @@ struct ContentView: View {
                                 selection: $collectionFilter
                             ) {
                                 ForEach(CollectionFilter.allCases) { filter in
-                                    Text(filter.rawValue).tag(filter)
+                                    Label(
+                                        filter.rawValue,
+                                        systemImage: filter.systemImage
+                                    )
                                 }
                             }
                             .pickerStyle(.inline)
@@ -118,8 +135,10 @@ struct ContentView: View {
                             Picker("LanguageFilter", selection: $languageFilter)
                             {
                                 ForEach(LanguageFilter.allCases) { filter in
-                                    Text(filter.rawValue).tag(filter)
-                                }
+                                    Label(
+                                        filter.rawValue,
+                                        systemImage: filter.systemImage
+                                    )                                }
                             }
                             .pickerStyle(.inline)
                         }
@@ -130,6 +149,7 @@ struct ContentView: View {
                                 : "line.3.horizontal.decrease.circle"
                         )
                     }
+                    .menuOrder(.fixed)
                 }
             }
         }

@@ -101,7 +101,7 @@ struct ContentView: View {
                 cards = cardRepository.loadCards()
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .bottomBar) {
                     Menu {
                         Section("Collection") {
                             Picker(
@@ -133,7 +133,6 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Pikabinder")
         }
     }
 }

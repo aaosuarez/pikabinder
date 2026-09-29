@@ -91,11 +91,11 @@ struct ContentView: View {
                     }
                 }
                 .padding(.horizontal)
-                .sheet(item: $selectedCard) { card in
-                    CardDetailView(card: card)
-                        .presentationDetents([.medium, .large])
+            }
+            .sheet(item: $selectedCard) { card in
+                CardDetailView(card: card)
+                    .presentationDetents([.medium, .large])
 
-                }
             }
             .task {
                 cards = cardRepository.loadCards()
